@@ -32,7 +32,6 @@ struct ScoreView: View {
                 }
                 
                 Divider()
-//                VStack{
                 ScrollView{
                     VStack{
                         ForEach(viewModel.savedEntitys){ lvl in

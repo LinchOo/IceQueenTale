@@ -1,32 +1,33 @@
 import Foundation
 import UIKit
 import SwiftUI
-//import Lottie
+import Lottie
 
 class StartApp: UIViewController, URLSessionDelegate {
     var window: UIWindow?
     let appDelegate = UIApplication.shared.delegate as? AppDelegate
-//    var animationView: LottieAnimationView?
+    var animationView: LottieAnimationView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.window = UIWindow(frame: UIScreen.main.bounds)
-//        animationView = .init(name: "loading")
-//        animationView?.frame = CGRect(x: 0 , y: view.bounds.height / 2 - 250, width: view.bounds.width, height: 300 )
-//        animationView?.loopMode = .loop
-//        animationView?.contentMode = .scaleToFill
-//        animationView?.animationSpeed = 1
-//        view.addSubview(animationView!)
-//        animationView?.play()
+        animationView = .init(name: "loading")
+        animationView?.frame = CGRect(x: 0 , y: view.bounds.height / 2 - 250, width: view.bounds.width, height: 300 )
+        animationView?.loopMode = .loop
+        animationView?.contentMode = .scaleToFill
+        animationView?.animationSpeed = 1
+        view.addSubview(animationView!)
+        animationView?.play()
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
             self.switchToHomeView()
-//            animationView?.stop()
+            self.animationView?.stop()
         }
     }
     
     func switchToHomeView() {
             let homeViewController = UIHostingController(rootView: MainTab())
             homeViewController.modalPresentationStyle = .fullScreen
+            AppUtility.lockOrientation(.portrait)
             self.window?.switchRootViewController(homeViewController,animated: true, duration: 0.3, options: .transitionCrossDissolve)
             self.window?.makeKeyAndVisible()
 
@@ -55,3 +56,20 @@ extension UIWindow {
         })
     }
 }
+
+struct AppUtility {
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask) {
+
+        if let delegate = UIApplication.shared.delegate as? AppDelegate {
+            delegate.orientationLock = orientation
+        }
+    }
+    static func lockOrientation(_ orientation: UIInterfaceOrientationMask, andRotateTo rotateOrientation:UIInterfaceOrientation) {
+
+        self.lockOrientation(orientation)
+
+        UIDevice.current.setValue(rotateOrientation.rawValue, forKey: "orientation")
+        UINavigationController.attemptRotationToDeviceOrientation()
+    }
+}
+

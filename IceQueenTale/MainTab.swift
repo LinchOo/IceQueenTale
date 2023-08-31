@@ -90,7 +90,6 @@ struct MainTab: View {
             if isPlayMenu {
                 LevelSelectionView(isPlayMenu: $isPlayMenu, MainTabOffSetX: $MainTabOffSetX)
                     .environmentObject(viewModel)
-//                    .transition(.offset(x: 500))
                     .transition(.asymmetric(insertion: .offset(x: 500), removal: .offset(x: 500)))
             }
             if isSettings {

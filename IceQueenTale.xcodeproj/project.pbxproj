@@ -11,6 +11,7 @@
 		2D56DCCC2A9F94C9006960B6 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D56DCCB2A9F94C9006960B6 /* App.swift */; };
 		2D56DCCF2A9F94C9006960B6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D56DCCD2A9F94C9006960B6 /* Main.storyboard */; };
 		2D56DCE72A9F94C9006960B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2D56DCC12A9F94C9006960B6 /* Assets.xcassets */; };
+		2D77C7F42AA0D84A00BEF0E5 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 2D77C7F32AA0D84A00BEF0E5 /* Lottie */; };
 		2DD7B5A82A9F9EBA0048ECEA /* loading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DD7B5A72A9F9EBA0048ECEA /* loading.json */; };
 		2DD7B5AA2A9F9EF40048ECEA /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD7B5A92A9F9EF40048ECEA /* MainTab.swift */; };
 		2DD7B5B02A9F9F440048ECEA /* ScoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD7B5AF2A9F9F440048ECEA /* ScoreView.swift */; };
@@ -29,6 +30,7 @@
 		2D56DCC92A9F94C9006960B6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2D56DCCB2A9F94C9006960B6 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		2D56DCCE2A9F94C9006960B6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		2D77C7F52AA0E95300BEF0E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2DD7B5A72A9F9EBA0048ECEA /* loading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading.json; sourceTree = "<group>"; };
 		2DD7B5A92A9F9EF40048ECEA /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
 		2DD7B5AF2A9F9F440048ECEA /* ScoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreView.swift; sourceTree = "<group>"; };
@@ -46,6 +48,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D77C7F42AA0D84A00BEF0E5 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +74,7 @@
 		2D56DCC82A9F94C9006960B6 /* IceQueenTale */ = {
 			isa = PBXGroup;
 			children = (
+				2D77C7F52AA0E95300BEF0E5 /* Info.plist */,
 				2D56DCC12A9F94C9006960B6 /* Assets.xcassets */,
 				2D56DCCB2A9F94C9006960B6 /* App.swift */,
 				2D56DCC92A9F94C9006960B6 /* AppDelegate.swift */,
@@ -137,6 +141,9 @@
 			dependencies = (
 			);
 			name = IceQueenTale;
+			packageProductDependencies = (
+				2D77C7F32AA0D84A00BEF0E5 /* Lottie */,
+			);
 			productName = "IceQueenTale iOS";
 			productReference = 2D56DCC62A9F94C9006960B6 /* IceQueenTale.app */;
 			productType = "com.apple.product-type.application";
@@ -165,6 +172,9 @@
 				Base,
 			);
 			mainGroup = 2D56DCB82A9F94C8006960B6;
+			packageReferences = (
+				2D77C7F22AA0D84A00BEF0E5 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = 2D56DCC72A9F94C9006960B6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -341,6 +351,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HLW5QT4ZSP;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IceQueenTale/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Ice Queen Tale";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -360,9 +371,12 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = IceQueenTale;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -378,6 +392,7 @@
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = HLW5QT4ZSP;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IceQueenTale/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Ice Queen Tale";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.puzzle-games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -397,9 +412,12 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = IceQueenTale;
 				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -426,6 +444,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2D77C7F22AA0D84A00BEF0E5 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2D77C7F32AA0D84A00BEF0E5 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D77C7F22AA0D84A00BEF0E5 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		2DD7B5BD2A9FA0050048ECEA /* DataBase.xcdatamodeld */ = {
