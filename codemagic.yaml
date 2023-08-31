@@ -3,7 +3,7 @@ workflows:
     name: iOS Code Signing
     max_build_duration: 120
 integrations:
-  app_store_connect: Code ASC API Key
+  app_store_connect: Code
 triggering:
     events:
         - push
