@@ -1,27 +1,50 @@
 workflows:
-  ios-codesigning:
-    name: iOS Code Signing
+  ios-native-workflow:
+    name: iOS Native
     max_build_duration: 120
     instance_type: mac_mini_m1
     integrations:
-      app_store_connect: Code
-    triggering:
-      events:
-        - push
+      app_store_connect: Сode
     environment:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.IceQueenTale
       vars:
-          BUNDLE_ID: "com.IceQueenTale"
-          XCODE_PROJECT: "IceQueenTale.xcodeproj"
-          XCODE_SCHEME: "IceQueenTale"
+        BUNDLE_ID: "com.IceQueenTale"
+        XCODE_WORKSPACE: "IceQueenTale.xcworkspace" # <-- Put the name of your Xcode workspace here
+        XCODE_SCHEME: "IceQueenTale" # <-- Put the name of your Xcode scheme here
+        APP_STORE_APPLE_ID: 6463804150
       xcode: 14.1
     scripts:
       - name: Set up provisioning profiles settings on Xcode project
         script: xcode-project use-profiles
-      - name: Build IPA for distribution
-        script: 
-          xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
+      - name: Increment build number
+        script: | 
+          cd $CM_BUILD_DIR
+          LATEST_BUILD_NUMBER=$(app-store-connect get-latest-app-store-build-number "$APP_STORE_APPLE_ID")
+          agvtool new-version -all $(($LATEST_BUILD_NUMBER + 1))
+      - name: Build ipa for distribution
+        script: | 
+          xcode-project build-ipa \
+            --workspace "$CM_BUILD_DIR/$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
     artifacts:
       - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+      - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM
+    publishing:
+      email:
+        recipients:
+          - blackburnaf82@hotmail.com
+        notify:
+          success: true
+          failure: false
+      app_store_connect:
+        auth: integration
+        # Configuration related to TestFlight (optional)
+        # Note: This action is performed during post-processing.
+        submit_to_testflight: false
+        # Configuration related to App Store (optional)
+        # Note: This action is performed during post-processing.
+        submit_to_app_store: false
