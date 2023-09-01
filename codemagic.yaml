@@ -14,9 +14,13 @@ triggering:
     vars:
         BUNDLE_ID: "com.IceQueenTale"
         XCODE_PROJECT: "IceQueenTale.xcodeproj"
+        XCODE_SCHEME: "IceQueenTale"
     xcode: latest
     scripts:
       - name: Set up provisioning profiles settings on Xcode project
         script: xcode-project use-profiles
       - name: Build IPA for distribution
-        script: xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
+        script: 
+          xcode-project build-ipa --project "$XCODE_PROJECT" --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
