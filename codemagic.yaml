@@ -2,10 +2,10 @@ workflows:
   ios-codesigning:
     name: iOS Code Signing
     max_build_duration: 120
-  integrations:
-    app_store_connect: Code
-  triggering:
-    events:
+    integrations:
+      app_store_connect: Code
+    triggering:
+      events:
         - push
     environment:
       ios_signing:
