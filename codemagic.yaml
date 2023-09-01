@@ -11,11 +11,11 @@ workflows:
       ios_signing:
         distribution_type: app_store
         bundle_identifier: com.IceQueenTale
-    vars:
-        BUNDLE_ID: "com.IceQueenTale"
-        XCODE_PROJECT: "IceQueenTale.xcodeproj"
-        XCODE_SCHEME: "IceQueenTale"
-    xcode: 14.0
+      vars:
+          BUNDLE_ID: "com.IceQueenTale"
+          XCODE_PROJECT: "IceQueenTale.xcodeproj"
+          XCODE_SCHEME: "IceQueenTale"
+      xcode: 14.0
     scripts:
       - name: Set up provisioning profiles settings on Xcode project
         script: xcode-project use-profiles
