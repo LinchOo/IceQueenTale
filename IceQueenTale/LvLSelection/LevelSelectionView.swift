@@ -53,15 +53,19 @@ struct LevelSelectionView: View {
                         .fill(Color.white)
                         .frame(width: chapterSelect == "Two" ? 15 : 7 ,height: 7)
                         .shadow(radius: 1)
-                    //                Capsule()
-                    //                    .fill(Color.white)
-                    //                    .frame(width: chapterSelect == "3" ? 15 : 7 ,height: 7)
-                }.offset(y:170)
+                    Capsule()
+                        .fill(Color.white)
+                        .frame(width: chapterSelect == "Three" ? 15 : 7 ,height: 7)
+                        .shadow(radius: 1)
+                }.offset(y:120)
+                    .shadow(color: .black, radius: 0.5)
                 TabView(selection: $chapterSelect){
                     chapterOne
                         .tag("One")
                     chapterTwo
                         .tag("Two")
+                    chapterThree
+                        .tag("Three")
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
             }
@@ -122,7 +126,32 @@ struct LevelSelectionView: View {
                 VStack{
 //                    ForEach(viewModel.lvlDB.savedEntitys, id: \.self) { lvl in
                     ForEach(viewModel.savedEntitys, id: \.self) { lvl in
-                        if lvl.number > 9 {
+                        if lvl.number > 9 && lvl.number < 19{
+                            LvLCell(imageName: lvl.lvlName ?? "", stars: Int(lvl.stars), pass: lvl.pass, time: Int(lvl.time),title: lvl.title ?? "", lvlSelected: $lvlSelected, isStartGame: $isStartGame, LeveLSelectionOffSetX: $LeveLSelectionOffSetX)
+                                .padding(.top, 35)
+                        }
+                    }
+                }
+                .padding(.top, 100)
+            }
+        }
+    }
+    private var chapterThree: some View{
+        ZStack(alignment: .top){
+            Text("= Chapter Three =")
+                .font(.system(size: 20, weight: .black, design: .serif))
+                .foregroundColor(.white)
+                .minimumScaleFactor(0.5)
+                .padding(.top,70)
+                .frame(alignment: .center)
+                .shadow(color: .black, radius: 5, x: 1.5, y: 1.5)
+                .shadow(color: .black, radius: 5, x: 1.5, y: 1.5)
+                .zIndex(3)
+            ScrollView(showsIndicators: false){
+                VStack{
+//                    ForEach(viewModel.lvlDB.savedEntitys, id: \.self) { lvl in
+                    ForEach(viewModel.savedEntitys, id: \.self) { lvl in
+                        if lvl.number > 18 {
                             LvLCell(imageName: lvl.lvlName ?? "", stars: Int(lvl.stars), pass: lvl.pass, time: Int(lvl.time),title: lvl.title ?? "", lvlSelected: $lvlSelected, isStartGame: $isStartGame, LeveLSelectionOffSetX: $LeveLSelectionOffSetX)
                                 .padding(.top, 35)
                         }

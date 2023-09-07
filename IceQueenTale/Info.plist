@@ -34,5 +34,39 @@
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb986422045929934</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAdvertiserIDCollectionEnabled</key>
+	<string>TRUE</string>
+	<key>FacebookAppID</key>
+	<string>986422045929934</string>
+	<key>FacebookClientToken</key>
+	<string>d82fbcd0ebbf1f30e52e624dace3ec07</string>
+	<key>FacebookDisplayName</key>
+	<string>IceQueenTale</string>
+	<key>NSAdvertisingAttributionReportEndpoint</key>
+	<string>https://appsflyer-skadnetwork.com/</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We collect this data for analytics and special offers in the menu for visitors</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This identifier will be used to show you personalized ads on the marketplaces.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

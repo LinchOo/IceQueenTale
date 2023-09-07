@@ -6,5 +6,8 @@ target 'IceQueenTale' do
   use_frameworks!
 
   # Pods for IceQueenTale
-
+    pod 'lottie-ios'
+    pod 'FirebaseAnalytics'
+    pod 'AppsFlyerFramework'
+    pod 'FBSDKCoreKit'
 end
