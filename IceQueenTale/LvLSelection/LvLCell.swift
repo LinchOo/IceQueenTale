@@ -1,5 +1,4 @@
 import SwiftUI
-
 struct LvLCell: View {
     @State var isSelect = false
     @State var imageName: String
@@ -10,7 +9,6 @@ struct LvLCell: View {
     @Binding var lvlSelected: String
     @Binding var isStartGame: Bool
     @Binding var LeveLSelectionOffSetX: CGFloat
-    
     var body: some View {
         design
     }
@@ -53,7 +51,6 @@ struct LvLCell: View {
                                     Color.gray.opacity(0.8)
                                 }
                             }
-                            
                     }
                     .overlay{
                         if !pass{
@@ -72,12 +69,10 @@ struct LvLCell: View {
                         }
                         if imageName == lvlSelected {
                             Button{
-                                //                                    lvlSelected = imageName
                                 lvlSelected = imageName
                                 withAnimation{
                                     isStartGame.toggle()
                                     LeveLSelectionOffSetX = -500
-                                    
                                 }
                             }label: {
                                 Image("play")
@@ -86,9 +81,7 @@ struct LvLCell: View {
                                     .frame(width: 100,height: 100)
                             }
                         }
-                        
                     }
-                
                 switch stars{
                 case 1:
                     starsView1
@@ -122,12 +115,9 @@ struct LvLCell: View {
                         .frame(alignment: .bottom)
                 }
             }
-            
             .frame(width: 330,height: 200)
-            
         }
     }
-    
     private var starsView1: some View {
         HStack(spacing: 5){
             
@@ -152,7 +142,6 @@ struct LvLCell: View {
                 .scaledToFit()
                 .frame(width: 25, height: 25)
                 .offset(y:-10)
-//            Spacer()
         }
         .padding(.horizontal,5)
         .frame(width: 100, height: 50,alignment: .leading)
@@ -179,11 +168,5 @@ struct LvLCell: View {
             .padding(.horizontal,5)
         .frame(width: 100, height: 50,alignment: .leading)
         }
-    }
-}
-
-struct LvLCell_Previews: PreviewProvider {
-    static var previews: some View {
-        LvLCell(imageName: "level_1", stars: 3, pass: false, time: 0,title: "Ice", lvlSelected: .constant(""), isStartGame: .constant(false), LeveLSelectionOffSetX: .constant(0))
     }
 }

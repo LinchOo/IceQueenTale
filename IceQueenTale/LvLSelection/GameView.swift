@@ -1,58 +1,35 @@
 import SwiftUI
-
 struct GameView: View {
-    
-    
-//    @EnvironmentObject var viewModel: LeveLViewModel
     @EnvironmentObject var viewModel: DataController
-//    @Environment(\.managedObjectContext) var managedObjContext
-    
-    //Setup colums
     let colums: [GridItem] = [
         .init(.fixed(72), spacing: 0, alignment: nil),
         .init(.fixed(72), spacing: 0, alignment: nil),
         .init(.fixed(72), spacing: 0, alignment: nil),
         .init(.fixed(72), spacing: 0, alignment: nil)
     ]
-    
-    //Image variables
     @State var imageArray: [UIImage] = []
     @State var imageArrayWin: [UIImage] = []
     @State var image = UIImage()
-    
-    // Timer variables
     @State var timeRemaining = 0
     @State var startTime = 0
     @State var timeHint = 0
     @State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
-    
-    // @State offSet
     @Binding var LeveLSelectionOffSetX: CGFloat
-    
-    // Interactive variables
     @Binding var lvlSelected: String
     @Binding var isStartGame: Bool
     @Binding var isPlayMenu: Bool
     @Binding var MainTabOffSetX: CGFloat
-    
     @State var isSelect = false
     @State var selectedFirstImage = -1
     @State var selectedSecondImage = -1
     @State var selectedBuffer = UIImage()
-    
-    // State variables
     @State var isGameOver = false
     @State var isWin = false
     @State var isPause = false
-    
-    // Game variables
     @State var hintCount: Int = 3
     @State var starsEarned: Int = 3
     @State var hintTap: Bool = false
-    
     var body: some View{
-        //------//
         VStack{
             header
                 .padding(.top,40)
@@ -78,7 +55,6 @@ struct GameView: View {
                                             imageArray[selectedFirstImage] = selectedBuffer
                                             isSelect = false
                                         }
-                                        
                                     } else {
                                         selectedFirstImage = index
                                         isSelect = true
@@ -110,7 +86,6 @@ struct GameView: View {
             SetTimer()
         }
         .ignoresSafeArea()
-        //--------//
         .overlay {
             if hintCount >= 0 {
                 if hintTap {
@@ -128,7 +103,6 @@ struct GameView: View {
                     .onDisappear{
                         timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                     }
-                    
             }
             if isWin{
                 winView
@@ -157,7 +131,6 @@ struct GameView: View {
                     .foregroundColor(.blue)
                     .opacity(0.5)
                     .multilineTextAlignment(.center)
-                    
                 VStack{
                     HStack{
                         Text("Time left:")
@@ -178,7 +151,6 @@ struct GameView: View {
                         Spacer()
                         Text("\(hintCount) of 3")
                             .padding(.trailing, 30)
-                        
                     }
                 }
                 .padding(.horizontal)
@@ -199,8 +171,6 @@ struct GameView: View {
                         isPlayMenu.toggle()
                         MainTabOffSetX = 0
                     }
-                    // Here Save Score
-                    
                 }label: {
                     Text("Menu")
                         .font(.system(size: 20, weight: .black, design: .rounded))
@@ -217,22 +187,18 @@ struct GameView: View {
                 }
                 Button{
                     let number = Int(lvlSelected.components(separatedBy: CharacterSet.decimalDigits.inverted).joined())
-
                     let nextLvL = viewModel.savedEntitys.first{ LeveL in
                         LeveL.number == number! + 1
                     }
                     if let next = nextLvL {
                         saveScore()
-                        
                         lvlSelected = next.lvlName!
                         isWin = false
                         imageArray = []
                         CreatePuzzle(lvl: lvlSelected)
                         SetTimer()
                         timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-                        
                     }
-                    
                 }label: {
                     Text("Next")
                         .font(.system(size: 20, weight: .black, design: .rounded))
@@ -251,7 +217,6 @@ struct GameView: View {
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .background(.ultraThinMaterial)
-
     }
     private var gameOverView: some View{
         VStack{
@@ -289,7 +254,6 @@ struct GameView: View {
                         .shadow(color: .cyan, radius: 4, x: -1, y: -1)
                 }
                 Button{
-//                    CreatePuzzle(lvl: lvlSelected)
                     SetTimer()
                     isGameOver.toggle()
                     imageArray.shuffle()
@@ -308,12 +272,10 @@ struct GameView: View {
                         .shadow(color: .cyan, radius: 4, x: -1, y: -1)
                 }
             }
-            
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .background(.ultraThinMaterial)
     }
-    
     private var stars: some View{
         ZStack(alignment: .bottom){
             HStack(spacing: 5){
@@ -340,9 +302,7 @@ struct GameView: View {
         .frame(width: 100, height: 50,alignment: .leading)
         }
         .shadow(color: .black, radius: 2, x: 0, y: 1)
-//        .shadow(color: .black, radius: 1, x: 0, y: -1)
     }
-    
     private var pause: some View {
         VStack{
             Text("Pause")
@@ -360,7 +320,6 @@ struct GameView: View {
                     .shadow(color: .white, radius: 0.5, x: -1, y: -1)
                     .padding(5)
                     .padding(.horizontal,5)
-                
             }
             .background{
                 Image("iceButton")
@@ -372,7 +331,6 @@ struct GameView: View {
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .background(.ultraThinMaterial)
     }
-    
     private var header: some View {
         ZStack(alignment: .center) {
             Button{
@@ -387,7 +345,6 @@ struct GameView: View {
                     .shadow(color: .white, radius: 0.5, x: -1, y: -1)
                     .padding(5)
                     .padding(.horizontal,5)
-                
             }
             .background{
                 Image("iceButton")
@@ -398,7 +355,6 @@ struct GameView: View {
             .padding()
             .offset(x: -140)
             Spacer()
-//            Text("3.23")
             Text(" \(TimerFormater(seconds:timeRemaining)) ")
                 .foregroundColor(.blue)
                 .font(.system(size: 20, weight: .black, design: .rounded))
@@ -464,11 +420,9 @@ struct GameView: View {
             }
             .padding()
             .offset(x: 140)
-//            Spacer()
         }
         .padding(.top,20)
     }
-    
     private var hintView: some View {
         VStack{
             Text("Ice Mountain")
@@ -484,7 +438,6 @@ struct GameView: View {
                         .shadow(color: .cyan, radius: 4, x: 1, y: 1)
                         .shadow(color: .cyan, radius: 4, x: -1, y: -1)
                 }
-            
             Text("\(timeHint)")
                 .opacity(0.5)
                 .onReceive(timer) { _ in
@@ -504,22 +457,18 @@ struct GameView: View {
                     .background{
                         Image(lvlSelected)
                             .resizable()
-//                            .frame(width: 260,height: 180)
                             .padding(.horizontal)
                             .mask {
                                 Image("lvlbutton")
                                     .resizable()
                             }
-                            
                     }
-                    
             }
             .frame(width: 360)
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .background(.ultraThinMaterial)
     }
-
     private var bottom: some View{
         VStack{
             Spacer()
@@ -539,9 +488,7 @@ struct GameView: View {
                     .shadow(color: .black, radius: 0.5, x: 1, y: 1)
                     .shadow(color: .white, radius: 0.5, x: -1, y: -1)
                     .foregroundColor( hintCount > 0 ? Color.blue : Color.gray)
-                    
             }
-            
             .background{
                 Image("iceButton")
                     .resizable()
@@ -554,19 +501,16 @@ struct GameView: View {
         }
         .disabled( hintCount > 0 ? false : true)
     }
-
     func SetHintTimer(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             hintTap.toggle()
         }
     }
-    
     func SetTimer(){
         let newStr = lvlSelected.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
         timeRemaining = 150 - 10*Int(newStr)!
         startTime = timeRemaining
     }
-    
     func saveScore(){
         if var index = Int(lvlSelected.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
             print("Enter Index")
@@ -590,9 +534,7 @@ struct GameView: View {
             viewModel.editNextLvLPass(lvl: lvl)
         }
     }
-    
     func CreatePuzzle(lvl: String){
-        
         let gameImage = UIImage(named: lvl)!.rebuildImage(imagesize: 350, row: 4, col: 4)
         let width = gameImage.size.width-5
         let imageConvert = gameImage.cgImage
@@ -611,18 +553,15 @@ struct GameView: View {
         let seconds = "\((seconds % 3600) % 60)"
         let minuteStamp = minutes.count > 1 ? minutes : "0" + minutes
         let secondStamp = seconds.count > 1 ? seconds : "0" + seconds
-        
         return "\(minuteStamp) : \(secondStamp)"
     }
 }
-
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         GameView(LeveLSelectionOffSetX: .constant(0), lvlSelected: .constant("level_1"), isStartGame: .constant(true), isPlayMenu: .constant(false), MainTabOffSetX: .constant(500))
             .environmentObject(DataController())
     }
 }
-
 extension UIImage{
     func rebuildImage(imagesize: CGFloat ,row: CGFloat, col: CGFloat) -> UIImage {
         let newBuild = CGSize(width: imagesize, height: imagesize + (row - col)*imagesize/col)

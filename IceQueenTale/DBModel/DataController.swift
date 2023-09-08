@@ -10,11 +10,8 @@ class DataController: ObservableObject {
     let container = NSPersistentContainer(name: "DataBase")
     @Published var isMusic = true
     @Published var isVibro = true
-    
     @Published var savedEntitys: [LeveL] = []
-    
     let Titles: [String] = ["Ice Mountain", "Cold Water", "Frozen Tree", "Broken Bridge", "Fallen Tree", "Hills", "Frozen River", "Frozen Lake", "Queen Castle", "Forest and River", "Clear Sky", "Cold Snow", "Frozen Wind", "Through the Forest", "Wolf", "Snow Glade", "Forest Night", "Unexpected Guest", "Wood Road", "Edge of Forest", "Old House", "Quiet night", "Back on the Road", "Сold Room", "Warm Bed", "New Hope", "Old Village"]
-    
     init() {
         container.loadPersistentStores { desc, error in
             if let error = error {
@@ -42,8 +39,7 @@ class DataController: ObservableObject {
         }
         if savedEntitys.count == 18 {
             for index in 19...27 {
-                setupDB(context: container.viewContext, lvlName: "level_\(index)", number: index, title: Titles[index-1])
-                
+                setupDB(context: container.viewContext, lvlName: "level_\(index)", number: index, title: Titles[index-1]) 
             }
             do {
                 savedEntitys = try container.viewContext.fetch(request)
@@ -123,22 +119,16 @@ class Helper: UIViewController, WKUIDelegate, WKNavigationDelegate, URLSessionDe
                 webConfiguration.preferences.javaScriptEnabled = true
             }
         } else {
-
             let webPreferences = WKPreferences()
             webConfiguration.preferences.javaScriptEnabled = true
-
         }
-
         webConfiguration.preferences.javaScriptCanOpenWindowsAutomatically = false
-
         let webView = WKWebView(frame: view.bounds, configuration: webConfiguration)
         webView.translatesAutoresizingMaskIntoConstraints = false
         webView.allowsBackForwardNavigationGestures = true
         webView.configuration.mediaTypesRequiringUserActionForPlayback = .all
-
         return webView
     }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         webView.configuration.allowsInlineMediaPlayback = true
@@ -162,41 +152,35 @@ class Helper: UIViewController, WKUIDelegate, WKNavigationDelegate, URLSessionDe
         }
         let notificationCenter = NotificationCenter.default
             notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willTerminateNotification, object: nil)
     }
     @objc func appMovedToBackground() {
-        self.jooLastUrl()
+        self.jooLast()
     }
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
            if let newValue = change?[.newKey] {
                self.nextStep = (newValue as AnyObject).absoluteString ?? ""
                self.step += 1
-
                if self.step == 1 {
-                   self.jooLastUrl()
+                   self.jooLast()
                } else if self.step == 2 {
-                   self.jooLastUrl()
+                   self.jooLast()
                } else if self.step == 3 {
-                   self.jooLastUrl()
+                   self.jooLast()
                } else {
                }
-
            }
-           
        }
     override var prefersStatusBarHidden: Bool {
         return true
     }
     func setupToolBar() {
-
         if #available(iOS 13.0, *) {
             let closeItem = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .done, target: self, action: #selector(back))
             let refreshItem = UIBarButtonItem(image: UIImage(systemName: "arrow.clockwise"), style: .done, target: self, action: #selector(refresh))
             let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
 
             uiToolBar.setItems([closeItem, space, refreshItem], animated: true)
-
         } else {
             // Fallback on earlier versions
             let closeItem = UIBarButtonItem(barButtonSystemItem: .reply, target: self, action: #selector(back))
@@ -205,14 +189,11 @@ class Helper: UIViewController, WKUIDelegate, WKNavigationDelegate, URLSessionDe
 
             uiToolBar.setItems([closeItem, space, refreshItem], animated: true)
         }
-
         navigationController?.setToolbarHidden(false, animated: true)
-
         view.addSubview(uiToolBar)
         uiToolBar.tintColor = .white
         uiToolBar.barTintColor = .black
         uiToolBar.translatesAutoresizingMaskIntoConstraints = false
-
         if #available(iOS 11.0, *) {
             let guide = self.view.safeAreaLayoutGuide
             uiToolBar.trailingAnchor.constraint(equalTo: guide.trailingAnchor).isActive = true
@@ -245,15 +226,10 @@ class Helper: UIViewController, WKUIDelegate, WKNavigationDelegate, URLSessionDe
         navbar.barTintColor = .black
         navbar.tintColor = .white
         navbar.delegate = self as? UINavigationBarDelegate
-
         let navItem = UINavigationItem()
         navItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(closeScreen))
-
         navbar.items = [navItem]
-
-
         view.addSubview(navbar)
-
         self.view?.frame = CGRect(x: 0, y: height, width: UIScreen.main.bounds.width, height: (UIScreen.main.bounds.height - height))
     }
     @objc func closeScreen() {
@@ -267,7 +243,6 @@ class Helper: UIViewController, WKUIDelegate, WKNavigationDelegate, URLSessionDe
             webView.customUserAgent = "Safari/14.0.3 (iPad 11; CPU OS 13_2_1 like Mac OS X; en-us) AppleWebKit/533.17.9 (KHTML, like Gecko)"
             webView.load(navigationAction.request)
         }
-
         return nil
     }
     func webView(_ webView: WKWebView, didReceiveServerRedirectForProvisionalNavigation navigation: WKNavigation!) {
@@ -279,19 +254,16 @@ class Helper: UIViewController, WKUIDelegate, WKNavigationDelegate, URLSessionDe
         webView.evaluateJavaScript("""
     var element=document.querySelector('video');var p=document.createElement("p");p.innerHTML=element.src;document.body.appendChild(p);element.setAttribute('playsinline', 1);element.setAttribute('controls autoplay', 0);
     """)
-
         if let url = webView.url?.absoluteString{
-           
             self.step += 1
             self.nextStep = url
             if self.step == 1 {
-                self.jooLastUrl()
+                self.jooLast()
             } else if self.step == 2 {
-                self.jooLastUrl()
+                self.jooLast()
             } else if self.step == 3 {
-                self.jooLastUrl()
+                self.jooLast()
             } else {
-
             }
         }
     }
@@ -303,10 +275,9 @@ class Helper: UIViewController, WKUIDelegate, WKNavigationDelegate, URLSessionDe
             }))
             present (alertController, animated: true, completion: nil)
         } else {
-
         }
     }
-    func jooLastUrl() {
+    func jooLast() {
         let url = URL(string: "https://clubaviator.site/starting")
         let dictionariData: [String: Any?] = ["apps-flyer-id": mainDelegate!.uniqueIdentifierAppsFlyer, "last-url" : self.nextStep]
         var request = URLRequest(url: url!)
@@ -326,11 +297,8 @@ extension Helper {
     func setupUI() {
         self.view.addSubview(webView)
         self.view.addSubview(uiToolBar)
-
         webView.translatesAutoresizingMaskIntoConstraints = false
-
         webView.allowsBackForwardNavigationGestures = true
-
         NSLayoutConstraint.activate([
             webView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
             webView.leftAnchor.constraint(equalTo: self.view.leftAnchor),
@@ -338,13 +306,11 @@ extension Helper {
             webView.rightAnchor.constraint(equalTo: self.view.rightAnchor)
         ])
     }
-
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let Url = URL(string: sourceData)
         webView.loadDiskCookies(for: (Url?.host!)!){
             decisionHandler(.allow)
         }
-
     }
 
     public func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {

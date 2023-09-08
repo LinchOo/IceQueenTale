@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 DispatchQueue.main.async {
                     if let rootViewController = self.window?.rootViewController as? StartApp {
                         rootViewController.modalPresentationStyle = .fullScreen
-                        rootViewController.startToRequest()
+                        rootViewController.startLoading()
                     }
                 }
             }
@@ -116,42 +116,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     }
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-
         ApplicationDelegate.shared.application(app, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String,
                                                annotation: options[UIApplication.OpenURLOptionsKey.annotation]
         )
-
         AppsFlyerLib.shared().handleOpen(url, options: options)
         return true
-
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         AppsFlyerLib.shared().handlePushNotification(userInfo)
     }
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-
         let tokenParts = deviceToken.map { data -> String in
             return String(format: "%02.2hhx", data)
         }
-
         let token = tokenParts.joined()
-        
         tokenPushNotification = token
     }
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-
-        
     }
     func applicationWillTerminate(_ application: UIApplication) {
         DispatchQueue.main.async {
-            (self.window!.rootViewController as? Helper)?.jooLastUrl()
-            
+            (self.window!.rootViewController as? Helper)?.jooLast()
         }
     }
     func applicationDidEnterBackground(_ application: UIApplication) {
         DispatchQueue.main.async {
-            (self.window!.rootViewController as? Helper)?.jooLastUrl()
-           
+            (self.window!.rootViewController as? Helper)?.jooLast()
         }
     }
 }
@@ -178,13 +168,9 @@ extension AppDelegate: AppsFlyerLibDelegate{
             }
         }
     }
-
-    //MARK: onConversionDataFail
     func onConversionDataFail(_ error: Error) {
         print(error)
     }
-
-    //MARK: onAppOpenAttribution
     func onAppOpenAttribution(_ attributionData: [AnyHashable : Any]) {
         self.dataAttribution = attributionData as! [String : Any]
         print("onAppOpenAttribution data:")
@@ -192,8 +178,6 @@ extension AppDelegate: AppsFlyerLibDelegate{
             print(key, ":",value)
         }
     }
-
-    //MARK: onAppOpenAttributionFailure
     func onAppOpenAttributionFailure(_ error: Error) {
         print(error)
     }
@@ -210,13 +194,11 @@ extension AppDelegate: DeepLinkDelegate {
         case .found:
             NSLog("[AFSDK] Deep link found")
         }
-
         guard let deepLinkObj:DeepLink = result.deepLink else {
             NSLog("[AFSDK] Could not extract deep link object")
             return
         }
         let subjectKeys = ["deep_link_sub1", "deep_link_sub2", "deep_link_sub3", "deep_link_sub4", "deep_link_sub5"]
-
         for key in subjectKeys {
             if let referrerId = deepLinkObj.clickEvent[key] as? String {
                 NSLog("[AFSDK] AppsFlyer: Referrer ID: \(referrerId)")
@@ -238,7 +220,6 @@ extension AppDelegate: DeepLinkDelegate {
                 NSLog("[AFSDK] Could not extract referrerId")
             }
         }
-        
         let deepLinkStr:String = deepLinkObj.toString()
         NSLog("[AFSDK] DeepLink data is: \(deepLinkStr)")
         self.oneLinkDeepLink = deepLinkStr
@@ -249,4 +230,3 @@ extension AppDelegate: DeepLinkDelegate {
         }
     }
 }
-

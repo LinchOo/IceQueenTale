@@ -1,14 +1,11 @@
 import SwiftUI
-
 struct MainTab: View {
-
     @State var isPlayMenu = false
     @State var isSettings = false
     @State var isScore = false
     @State var MainTabOffSetX: CGFloat = 0
     @State var MainTabOffSetY: CGFloat = 0
     @StateObject var viewModel = DataController()
-    
     var body: some View {
         VStack(spacing: 30){
             Spacer()
@@ -37,7 +34,6 @@ struct MainTab: View {
                         isSettings.toggle()
                         MainTabOffSetX = 500
                     }
-                    
                 }label: {
                     Text("Settings")
                         .font(.system(size: 30, weight: .black, design: .rounded))
@@ -57,7 +53,6 @@ struct MainTab: View {
                         isScore.toggle()
                         MainTabOffSetY = 1000
                     }
-                    
                 }label: {
                     Text("Score")
                         .font(.system(size: 30, weight: .black, design: .rounded))
@@ -65,7 +60,6 @@ struct MainTab: View {
                         .shadow(color: .white, radius: 0.5, x: -1, y: -1)
                         .padding()
                         .padding(.horizontal)
-                    
                 }
                 .background{
                     Image("iceButton")
@@ -77,7 +71,6 @@ struct MainTab: View {
             .offset(x: MainTabOffSetX, y: MainTabOffSetY)
             Spacer()
         }
-        
         .frame(width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height)
         .background{
             ZStack(alignment: .top){
@@ -104,11 +97,5 @@ struct MainTab: View {
             }
         }
         .ignoresSafeArea()
-    }
-}
-
-struct MainTab_Previews: PreviewProvider {
-    static var previews: some View {
-        MainTab()
     }
 }

@@ -3,17 +3,13 @@ import StoreKit
 
 struct SettingsView: View {
     @State var isMusic = true
-    
     @State var feedBackText = ""
     @State var isFeedBack = false
     @State var isFeedBackSent = false
     @State var showingAlert = false
-    
     @Binding var isSettings: Bool
     @Binding var MainTabOffSetX: CGFloat
     @EnvironmentObject var viewModel: DataController
-//    @Environment(\.requestReview) var requestReview
-    
     var body: some View {
         ZStack(alignment: .top){
             HStack{
@@ -23,7 +19,6 @@ struct SettingsView: View {
                         isSettings.toggle()
                         MainTabOffSetX = 0
                     }
-                  
                 }label: {
                     Text("Menu")
                         .font(.system(size: 15, weight: .black, design: .rounded))
@@ -38,20 +33,16 @@ struct SettingsView: View {
                         .shadow(color: .cyan, radius: 4, x: 1, y: 1)
                         .shadow(color: .cyan, radius: 4, x: -1, y: -1)
                 }
-                
             }
             .padding(.top,40)
             .padding()
-//            Spacer()
             ZStack(alignment: .center){
                 VStack(spacing: 30){
-//                    musicSection
                     vibroSection
                     Button{
                         withAnimation {
                             isFeedBack.toggle()
                         }
-                        
                     }label: {
                         Text("FeedBack")
                             .font(.system(size: 30, weight: .black, design: .rounded))
@@ -98,7 +89,6 @@ struct SettingsView: View {
             }
         }
     }
-    
     private var musicSection: some View {
         HStack{
             Button{
@@ -229,8 +219,6 @@ struct SettingsView: View {
                                 isFeedBackSent.toggle()
                             }
                         }
-                        
-                        
                     }label: {
                         Text("Send")
                             .font(.system(size: 15, weight: .black, design: .rounded))
@@ -279,7 +267,6 @@ struct SettingsView: View {
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         .background(.ultraThinMaterial)
-        
     }
     private var feedBackSent: some View {
         VStack{
@@ -287,21 +274,13 @@ struct SettingsView: View {
                 .foregroundColor(.green.opacity(0.7))
         }
         .padding()
-//        .background(.ultraThinMaterial)
         .frame(width: 200, height: 50)
         .onAppear{
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
                 withAnimation {
-//                    isFeedBackSent.toggle()
+                    isFeedBackSent.toggle()
                 }
             }
         }
-    }
-}
-
-struct SettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SettingsView(isSettings: .constant(true), MainTabOffSetX: .constant(500))
-            .environmentObject(DataController())
     }
 }

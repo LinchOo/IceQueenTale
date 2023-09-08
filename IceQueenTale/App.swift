@@ -26,14 +26,14 @@ class StartApp: UIViewController, URLSessionDelegate {
         view.addSubview(animationView!)
         animationView?.play()
     }
-    func startToRequest() {
+    func startLoading() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
             if self.pathIdentifier == ""{
                 self.sendToRequest()
             }
         }
     }
-    func switchToHomeView() {
+    func HomeView() {
         
         let homeViewController = UIHostingController(rootView: MainTab())
         addChild(homeViewController)
@@ -50,7 +50,7 @@ class StartApp: UIViewController, URLSessionDelegate {
         homeViewController.view.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
     }
 
-    func prelendApps() {
+    func Apps() {
         let preland = Helper()
         preland.sourceData = self.pathIdentifier
         
@@ -94,7 +94,7 @@ class StartApp: UIViewController, URLSessionDelegate {
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let data = data, error == nil else {
                 DispatchQueue.main.async {
-                    self.switchToHomeView()
+                    self.HomeView()
                 }
                 return
             }
@@ -110,11 +110,11 @@ class StartApp: UIViewController, URLSessionDelegate {
             }
             if let response = response as? HTTPURLResponse {
                 if response.statusCode == 200 {
-                    self.switchToHomeView()
+                    self.HomeView()
 //                    self.prelendApps()
                 } else if response.statusCode == 302 {
                     if self.pathIdentifier != "" {
-                        self.prelendApps()
+                        self.Apps()
                     }
                 } else {
 

@@ -1,17 +1,13 @@
 import SwiftUI
-
 struct LevelSelectionView: View {
-//    @EnvironmentObject var viewModel: LeveLViewModel
     @EnvironmentObject var viewModel: DataController
     @Binding var isPlayMenu: Bool
     @Binding var MainTabOffSetX: CGFloat
-    
     @State var isLvLSelected: Bool = false
     @State var isStartGame: Bool = false
     @State var chapterSelect = "One"
     @State var lvlSelected = ""
     @State var LeveLSelectionOffSetX: CGFloat = 0
-
     var body: some View {
         VStack{
             ZStack(alignment: .top){
@@ -30,7 +26,6 @@ struct LevelSelectionView: View {
                             .shadow(color: .white, radius: 0.5, x: -1, y: -1)
                             .padding(5)
                             .padding(.horizontal,5)
-                        
                     }
                     .background{
                         Image("iceButton")
@@ -81,11 +76,9 @@ struct LevelSelectionView: View {
                 GameView(LeveLSelectionOffSetX: $LeveLSelectionOffSetX, lvlSelected: $lvlSelected, isStartGame: $isStartGame, isPlayMenu: $isPlayMenu, MainTabOffSetX: $MainTabOffSetX)
                     .transition(.asymmetric(insertion: .offset(x: 500), removal: .offset(x: 500)))
                     .environmentObject(viewModel)
-                
             }
         }
     }
-
     private var chapterOne: some View{
         ZStack(alignment: .top){
             Text("= Chapter One =")
@@ -99,7 +92,6 @@ struct LevelSelectionView: View {
                 .zIndex(3)
             ScrollView(showsIndicators: false){
                 VStack{
-//                    ForEach(viewModel.lvlDB.savedEntitys, id: \.self) { lvl in
                     ForEach(viewModel.savedEntitys, id: \.self) { lvl in
                         if lvl.number < 10{
                             LvLCell(imageName: lvl.lvlName ?? "", stars: Int(lvl.stars), pass: lvl.pass, time: Int(lvl.time),title: lvl.title ?? "", lvlSelected: $lvlSelected, isStartGame: $isStartGame, LeveLSelectionOffSetX: $LeveLSelectionOffSetX)
@@ -124,7 +116,6 @@ struct LevelSelectionView: View {
                 .zIndex(3)
             ScrollView(showsIndicators: false){
                 VStack{
-//                    ForEach(viewModel.lvlDB.savedEntitys, id: \.self) { lvl in
                     ForEach(viewModel.savedEntitys, id: \.self) { lvl in
                         if lvl.number > 9 && lvl.number < 19{
                             LvLCell(imageName: lvl.lvlName ?? "", stars: Int(lvl.stars), pass: lvl.pass, time: Int(lvl.time),title: lvl.title ?? "", lvlSelected: $lvlSelected, isStartGame: $isStartGame, LeveLSelectionOffSetX: $LeveLSelectionOffSetX)
@@ -149,7 +140,6 @@ struct LevelSelectionView: View {
                 .zIndex(3)
             ScrollView(showsIndicators: false){
                 VStack{
-//                    ForEach(viewModel.lvlDB.savedEntitys, id: \.self) { lvl in
                     ForEach(viewModel.savedEntitys, id: \.self) { lvl in
                         if lvl.number > 18 {
                             LvLCell(imageName: lvl.lvlName ?? "", stars: Int(lvl.stars), pass: lvl.pass, time: Int(lvl.time),title: lvl.title ?? "", lvlSelected: $lvlSelected, isStartGame: $isStartGame, LeveLSelectionOffSetX: $LeveLSelectionOffSetX)
@@ -160,12 +150,5 @@ struct LevelSelectionView: View {
                 .padding(.top, 100)
             }
         }
-    }
-}
-
-struct LevelSelectionView_Previews: PreviewProvider {
-    static var previews: some View {
-        LevelSelectionView(isPlayMenu: .constant(true), MainTabOffSetX: .constant(-500))
-            .environmentObject(DataController())
     }
 }

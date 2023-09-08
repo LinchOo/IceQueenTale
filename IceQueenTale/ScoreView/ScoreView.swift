@@ -1,11 +1,8 @@
 import SwiftUI
-
 struct ScoreView: View {
-    
     @Binding var isScore: Bool
     @Binding var MainTabOffSetY: CGFloat
     @EnvironmentObject var viewModel: DataController
-    
     var body: some View {
         VStack{
             Text("Score Table")
@@ -30,7 +27,6 @@ struct ScoreView: View {
                     Text(":")
                     Text("Stars")
                 }
-                
                 Divider()
                 ScrollView{
                     VStack{
@@ -51,7 +47,6 @@ struct ScoreView: View {
                         }
                     }
                     .frame(height: 230)
-
                 Spacer()
             }
             .padding(.horizontal)
@@ -84,7 +79,6 @@ struct ScoreView: View {
                     .shadow(color: .cyan, radius: 4, x: -1, y: -1)
             }
             .padding(.bottom)
-                
         }
         .padding(.top,40)
         .background{
@@ -96,10 +90,8 @@ struct ScoreView: View {
         let seconds = "\((seconds % 3600) % 60)"
         let minuteStamp = minutes.count > 1 ? minutes : "0" + minutes
         let secondStamp = seconds.count > 1 ? seconds : "0" + seconds
-        
         return "\(minuteStamp) : \(secondStamp)"
     }
-    
 }
 struct scoreStars: View{
     @State var starsEarned: Int
@@ -129,13 +121,5 @@ struct scoreStars: View{
             .frame(width: 55, height: 30,alignment: .leading)
         }
         .shadow(color: .black, radius: 2, x: 0, y: 1)
-    }
-    
-}
-
-struct ScoreView_Previews: PreviewProvider {
-    static var previews: some View {
-        ScoreView(isScore: .constant(true), MainTabOffSetY: .constant(1000))
-            .environmentObject(DataController())
     }
 }
