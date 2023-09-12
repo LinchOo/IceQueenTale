@@ -1,4 +1,4 @@
-![2778x1284 1](https://github.com/LinchOo/IceQueenTale/assets/110239763/3cb6065a-aafd-4c99-b333-61668383229a)
-![2778x1284 2](https://github.com/LinchOo/IceQueenTale/assets/110239763/82c9e8f0-597f-4082-b5dc-3b4ac18d4dc0)
-![2778x1284 3](https://github.com/LinchOo/IceQueenTale/assets/110239763/d28d695d-0fea-4084-a624-6672ec9753b0)
-![2778x1284 4](https://github.com/LinchOo/IceQueenTale/assets/110239763/0a838d22-c976-400c-9ed8-d22e08e5620a)
+![2778x1284 1](https://github.com/LinchOo/IceQueenTale/assets/110239763/6bf52b86-952c-4d44-9ba3-a8c36968be7e)
+![2778x1284 2](https://github.com/LinchOo/IceQueenTale/assets/110239763/8005d564-e401-4b13-ac7e-78900616c281)
+![2778x1284 3](https://github.com/LinchOo/IceQueenTale/assets/110239763/3fd4a7c5-3777-46bb-9d1e-8d7e84f9120d)
+![2778x1284 4](https://github.com/LinchOo/IceQueenTale/assets/110239763/69e99b01-3f7a-462b-9031-f6d1ba62472b)
